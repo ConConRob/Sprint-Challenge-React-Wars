@@ -29,8 +29,12 @@ class App extends Component {
         return res.json();
       })
       .then(data => {
-        console.log(data);
-        this.setState({ starwarsChars: data.results, nextURL: data.next },cb);
+        this.setState({ starwarsChars: data.results, nextURL: data.next },this.setPrevNext);
+        if(data.previous){
+          this.setState({prevURL: data.previous},this.setPrevNext);
+        }else{
+          this.setState({prevURL: ''}, this.setPrevNext)
+        }
       })
       .catch(err => {
         throw new Error(err);
@@ -39,23 +43,31 @@ class App extends Component {
 
   changePage = direction => {
     if(direction==="next"){
-      this.setState( currentState => {
-        return {prevURL: currentState.nextURL}
-      }, () => {
-        this.getCharacters(this.state.nextURL, )
-      })
+        this.getCharacters(this.state.nextURL)
+    }
+    if(direction==="prev"){
+        this.getCharacters(this.state.prevURL)
     }
   }
 
   setPrevNext = () => {
-
+    if(this.state.nextURL !== ''){
+      this.setState({next: true})
+    }else {
+      this.setState({next: false})
+    }
+    if(this.state.prevURL !== ''){
+      this.setState({prev: true})
+    }else {
+      this.setState({prev: false})
+    }
   }
 
   render() {
     return (
       <div className="App">
         <h1 className="Header">React Wars</h1>
-        <List list={this.state.starwarsChars} changePage={this.changePage} />
+        <List list={this.state.starwarsChars} changePage={this.changePage} prevNext={{prev:this.state.prev, next:this.state.next}} />
       </div>
     );
   }
