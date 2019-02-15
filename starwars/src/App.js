@@ -12,7 +12,7 @@ class App extends Component {
       nextURL: '',
       prevURL: '',
       prev: false,
-      next: true,
+      next: false,
     };
   }
 
@@ -29,11 +29,16 @@ class App extends Component {
         return res.json();
       })
       .then(data => {
-        this.setState({ starwarsChars: data.results, nextURL: data.next },this.setPrevNext);
+        this.setState({ starwarsChars: data.results  },this.setPrevNext);
+        if(data.next){
+          this.setState({nextURL: data.next},this.setPrevNext);
+        }else{
+          this.setState({nextURL: ''}, this.setPrevNext);
+        }
         if(data.previous){
           this.setState({prevURL: data.previous},this.setPrevNext);
         }else{
-          this.setState({prevURL: ''}, this.setPrevNext)
+          this.setState({prevURL: ''}, this.setPrevNext);
         }
       })
       .catch(err => {

@@ -34,4 +34,13 @@
     color: white;
     font-size: 1.8rem;
     width: 50%;
+    margin-bottom: 10px;
+}
+.list-nav-button:hover {
+    background: black;
+}
+button.list-nav-button:disabled {
+    color: rgba(0, 0, 0, 0);  
+    background:rgba(0, 0, 0, 0);  
+    border:none;
 }
