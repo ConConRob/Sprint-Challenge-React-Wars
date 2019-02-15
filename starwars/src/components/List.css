@@ -9,15 +9,14 @@
     display: flex;
     border: 2px solid white;
     margin: 5px 0;
-    padding: 0 50px;
+    
     color: white;
     font-size: 2rem;
     align-items: center;
     justify-content: space-around;
-    
 
 }
-
+/* Left like this if I wanted diffrent style for each of list items content */
 .list-item-name{
     width:100px;
 }
@@ -27,5 +26,5 @@
 }
 
 .list-item-height {
-    width: 50px;
+    width: 100px;
 }
